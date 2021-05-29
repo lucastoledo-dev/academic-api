@@ -1,4 +1,5 @@
-export const getIESDetail = (ies, res) => {
+
+export const getIESDetail = async (ies) => {
   const scrapy = require('node-scrapy')
   let buff = new Buffer(ies);
   let base64data = buff.toString('base64');
@@ -44,20 +45,17 @@ export const getIESDetail = (ies, res) => {
        valor: 'tr:nth-child(6) tr:nth-child(4) > td:nth-child(2) ($ | trim)',
        ano: 'tr:nth-child(6) tr:nth-child(4) > td:nth-child(3) ($ | trim)',
      }
-    },
-    emec_url: url
+    }
   }
   
-
-  fetch(url)
+  const result = await fetch(url)
     .then((res) => res.text())
     .then((body) => {
-      res.json({
-        model: model,
-        emec_url: url
-      });
-    })
-    .catch(console.error)
+      return {
+        iesDetail: scrapy.extract(body, model),
+        url: url
+      };
+  });
 
-  //return scrapy.extract(req.body, model)
+  return result
 }
