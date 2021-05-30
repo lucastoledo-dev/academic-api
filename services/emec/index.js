@@ -51,8 +51,11 @@ export const getIESDetail = async (ies) => {
   const result = await fetch(url)
     .then((res) => res.text())
     .then((body) => {
+      const iesDetail = scrapy.extract(body, model);
+      if(!iesDetail.ies)
+        return {}
       return {
-        iesDetail: scrapy.extract(body, model),
+        iesDetail: iesDetail,
         url: url
       };
   });
