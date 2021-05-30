@@ -13,7 +13,6 @@ module.exports = {
     'pages/api/**/**/*.js',
     '!tests/**/**.test.js'
   ],
-  coverageReporters: ['lcov', 'text'],
   globals: {
     SERVER_URL: 'http://localhost:3000',
   },
