@@ -48,7 +48,7 @@ export const getIESDetail = async (ies) => {
     }
   }
   
-  const result = await fetch(url)
+  return await fetch(url)
     .then((res) => res.text())
     .then((body) => {
       const iesDetail = scrapy.extract(body, model);
@@ -60,5 +60,4 @@ export const getIESDetail = async (ies) => {
       };
   });
 
-  return result
 }
