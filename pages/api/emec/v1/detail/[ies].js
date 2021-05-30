@@ -12,7 +12,7 @@ async function detail(request, response){
       message: 'IES Não encontrada',
       type: 'IES_CODE_NOT_FOUND',
     });
-    return;
+      return;
   }
 
   response.json({body: iesDetail, original_emec_url: url});

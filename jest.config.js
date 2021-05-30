@@ -1,7 +1,8 @@
 module.exports = {
   testTimeout: 30000,
-  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
-  bail: 1,
+  globals: {
+    SERVER_URL: 'http://localhost:3000',
+  },
   clearMocks: true,
   collectCoverage: true,
   coverageDirectory: '<rootDir>//reports//coverage',
@@ -13,9 +14,6 @@ module.exports = {
     'pages/api/**/**/*.js',
     '!tests/**/**.test.js'
   ],
-  globals: {
-    SERVER_URL: 'http://localhost:3000',
-  },
   testEnvironment: 'node',
   //globalSetup: './tests/helpers/server/setup',
   //globalTeardown: './tests/helpers/server/teardown',
