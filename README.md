@@ -15,19 +15,21 @@ Acesso programático de informações é algo fundamental na comunicação entre
 
 A API se propõe a facilitar o acesso às informações que estão centralizadas em alguns indexadores, entre eles:
 
-[EMEC](https://emec.mec.gov.br/)
-[CNPQ](https://www.gov.br/cnpq/pt-br)
-[BDTD](https://bdtd.ibict.br/vufind/)
+[EMEC](https://emec.mec.gov.br/) 
+[CNPQ](https://www.gov.br/cnpq/pt-br) * Futuramente
+[BDTD](https://bdtd.ibict.br/vufind/) * Futuramente
 (Outros indexadores poderão ser adicionados posteriomente.)
 
 
 Dado a isso, este projeto experimental tem como objetivo centralizar e disponibilizar endpoints modernos com baixíssima latência utilizando tecnologias como [Vercel](https://academic-api.vercel.app/) responsável por fazer o cache das informações em atualmente 23 regiões distribuídas ao longo do mundo (incluindo Brasil). Então não importa o quão devagar for a fonte dos dados, nós queremos disponibilizá-la da forma mais rápida e moderna possível.
 
 ### Documentação
-(Em andamento)
+
+Exemplo de uso para consulta detalhada de uma  **Instituição de Ensino Superior (IES)** 
+```sh
+/api/emec/v1/detail/{IES_CODE}
+```
 
 ## Como contribuir
-(Em andamento)
+Caso você esteja lendo esta versão de README, você está pegando o projeto num estágio extremamente inicial, porém empolgante, pois há várias coisas a serem definidas. Então caso queira contribuir, utilize as issues para entender quais pontos ainda não foram resolvidos, conversar conosco e contribuir tanto com idéias técnicas, quanto de quais APIs podem ser criadas.
 
-## Termos de Uso
-(Em andamento)
