@@ -1,11 +1,17 @@
+export const getAll = async (ies) => {
+  const detail = await getIESDetail(ies);
+  const regulatoryAct = await getIESRegulatoryAct(ies);
+  
+  return {
+    result:{
+      code: ies,
+      detail: detail
+    }
+  }
+}
 
 export const getIESDetail = async (ies) => {
-  const scrapy = require('node-scrapy')
-  let buff = new Buffer(ies);
-  let base64data = buff.toString('base64');
-
-  const url = 'https://emec.mec.gov.br/emec/consulta-ies/index/d96957f455f6405d14c6542552b0f6eb/'+base64data
-
+  const url = getUrlByPage_(ies,'detail');
   const model = {
     ies: '.tooltip ($ | trim)',
     status: 'tr:nth-child(4) tr:nth-child(2) > td:nth-child(2) ($ | trim)',
@@ -47,17 +53,44 @@ export const getIESDetail = async (ies) => {
      }
     }
   }
-  
+  return scrapyModel_(url,model)
+}
+
+export const getIESRegulatoryAct = async (ies) => {
+  const url = getUrlByPage_(ies,'ato-regulatorio');
+  const model = {
+    atos: [
+      'table#teste tbody',
+      {
+        atoRegulatorio: 'tr:nth-child(1) > td:nth-child(2) ($ | trim)',
+      },
+    ]
+  }
+  return scrapyModel_(url,model)
+}
+
+export const scrapyModel_ = async (url, model) => {
+  const scrapy = require('node-scrapy')
   return await fetch(url)
     .then((res) => res.text())
     .then((body) => {
-      const iesDetail = scrapy.extract(body, model);
-      if(!iesDetail.ies)
-        return {}
       return {
-        iesDetail: iesDetail,
+        result: scrapy.extract(body, model),
         url: url
-      };
+      }
   });
+}
 
+export const getIESCodeEncoded_ = (ies) => {
+  let buff = new Buffer(ies);
+  return buff.toString('base64');
+}
+
+export const getUrlByPage_ = (ies,page) => {
+  switch (page) {
+    case 'detail':
+      return "https://emec.mec.gov.br/emec/consulta-ies/index/d96957f455f6405d14c6542552b0f6eb/"+getIESCodeEncoded_(ies)
+    case 'ato-regulatorio':
+      return "https://emec.mec.gov.br/emec/consulta-ies/listar-ato-regulatorio/d96957f455f6405d14c6542552b0f6eb/"+getIESCodeEncoded_(ies)
+  }
 }
