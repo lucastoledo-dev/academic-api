@@ -1,7 +1,6 @@
 export const getAll = async (ies) => {
   const detail = await getIESDetail(ies);
-  const regulatoryAct = await getIESRegulatoryAct(ies);
-  
+
   return {
     result:{
       code: ies,
@@ -71,7 +70,7 @@ export const getIESRegulatoryAct = async (ies) => {
 
 export const scrapyModel_ = async (url, model) => {
   const scrapy = require('node-scrapy')
-  return await fetch(url)
+  return fetch(url)
     .then((res) => res.text())
     .then((body) => {
       return {

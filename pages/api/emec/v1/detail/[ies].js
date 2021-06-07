@@ -1,6 +1,6 @@
 import { getAll } from '../../../../../services/emec';
 
-async function detail(request, response){
+async function index(request, response){
   response.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate');
   
   const { ies } = request.query
@@ -18,7 +18,7 @@ async function detail(request, response){
   response.json({body: result});
 }
 
-export default detail;
+export default index;
 
 
 
